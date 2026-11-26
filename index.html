@@ -1,194 +1,461 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wishlist</title>
 <style>
-  :root {
-    --bg: #faf8f2;
-    --card: #fdfcf8;
-    --tint: #efebdd;
-    --green: #2c3a1f;
-    --muted: #6b7560;
-    --line: #d9d5c4;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--green);
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-  }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px 60px; }
-  header { padding: 48px 0 20px; border-bottom: 1.5px solid var(--green); }
-  h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.2rem, 6vw, 3.2rem); margin: 0; letter-spacing: -0.5px; }
-  header p { margin: 6px 0 0; color: var(--muted); font-size: 0.95rem; }
+:root {
+  --bg: #faf8f2;
+  --card: #fdfcf8;
+  --tint: #efebdd;
+  --green: #2c3a1f;
+  --muted: #6b7560;
+  --line: #d9d5c4;
+}
 
-  .filters {
-    position: sticky; top: 0; z-index: 5;
-    background: var(--bg);
-    padding: 14px 0; margin-bottom: 8px;
-    display: flex; flex-wrap: wrap; gap: 8px;
-    border-bottom: 1px solid var(--line);
-  }
-  .chip {
-    font: inherit; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 8px 16px; border: 1px solid var(--green); background: transparent; color: var(--green);
-    border-radius: 3px; cursor: pointer; transition: background .15s, color .15s;
-  }
-  .chip:hover { background: var(--tint); }
-  .chip.active { background: var(--green); color: var(--bg); }
+* { box-sizing: border-box; }
 
-  section { margin-top: 36px; }
-  section h2 {
-    font-family: Georgia, serif; font-size: 1.5rem; margin: 0 0 4px;
-    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
-  }
-  section h2 small { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 0.8rem; color: var(--muted); font-weight: normal; letter-spacing: 0.05em; }
-  .rule { height: 1px; background: var(--line); margin: 8px 0 18px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--green);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
-  .card {
-    display: flex; flex-direction: column;
-    background: var(--card); border: 1px solid var(--line); border-radius: 4px;
-    text-decoration: none; color: inherit; overflow: hidden;
-    transition: transform .15s, box-shadow .15s, border-color .15s;
-  }
-  .card:hover, .card:focus-visible { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(44,58,31,.12); border-color: var(--green); outline: none; }
-  .thumb {
-    position: relative; aspect-ratio: 4 / 3; background: var(--tint);
-    display: flex; align-items: center; justify-content: center; overflow: hidden;
-  }
-  .thumb .label {
-    font-family: Georgia, serif; font-size: 1.6rem; color: var(--green); opacity: .55; text-align: center; padding: 0 10px;
-  }
-  .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #fff; padding: 8px; }
-  .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
-  .store { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-  .name { font-family: Georgia, serif; font-size: 1.1rem; font-weight: bold; line-height: 1.25; }
-  .note { font-size: 0.85rem; color: #4d5644; flex: 1; }
-  .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-  .price { font-weight: 600; }
-  .go { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--green); color: var(--bg); padding: 7px 12px; border-radius: 3px; }
-  .empty { color: var(--muted); padding: 30px 0; }
-  footer { margin-top: 50px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 0.78rem; color: var(--muted); }
+.wrap {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px 60px;
+}
 
-  @media (max-width: 520px) {
-    .wrap { padding: 0 14px 40px; }
-    header { padding-top: 32px; }
-    .grid { grid-template-columns: 1fr; }
-    .chip { flex: 1 1 auto; text-align: center; padding: 9px 10px; }
-  }
+header {
+  padding: 48px 0 20px;
+  border-bottom: 1.5px solid var(--green);
+}
+
+h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  margin: 0;
+}
+
+header p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+.filters {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg);
+  padding: 14px 0;
+  margin-bottom: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.chip {
+  font: inherit;
+  font-size: .8rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid var(--green);
+  background: transparent;
+  color: var(--green);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.chip:hover { background: var(--tint); }
+.chip.active { background: var(--green); color: var(--bg); }
+
+section { margin-top: 36px; }
+
+section h2 {
+  font-family: Georgia, serif;
+  font-size: 1.5rem;
+  margin: 0 0 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+section h2 small {
+  font-family: Arial, sans-serif;
+  font-size: .8rem;
+  color: var(--muted);
+  font-weight: normal;
+}
+
+.rule {
+  height: 1px;
+  background: var(--line);
+  margin: 8px 0 18px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: transform .15s, box-shadow .15s;
+}
+
+.card:hover, .card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(44,58,31,.12);
+  border-color: var(--green);
+  outline: none;
+}
+
+.thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.thumb .label {
+  font-family: Georgia, serif;
+  font-size: 1.6rem;
+  opacity: .55;
+  text-align: center;
+}
+
+.thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: white;
+  padding: 8px;
+}
+
+.body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.store {
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.name {
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+  line-height: 1.25;
+}
+
+.note {
+  font-size: .85rem;
+  color: #4d5644;
+  flex: 1;
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.price { font-weight: 600; }
+
+.go {
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: var(--green);
+  color: var(--bg);
+  padding: 7px 12px;
+  border-radius: 3px;
+}
+
+.empty {
+  color: var(--muted);
+  padding: 30px 0;
+}
+
+footer {
+  margin-top: 50px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: .78rem;
+  color: var(--muted);
+}
+
+@media (max-width: 520px) {
+  .wrap { padding: 0 14px 40px; }
+  header { padding-top: 32px; }
+  .grid { grid-template-columns: 1fr; }
+  .chip { flex: 1 1 auto; text-align: center; }
+}
 </style>
 </head>
+
 <body>
 <div class="wrap">
-  <header>
-    <h1>Wishlist</h1>
-    <p>Tap any item to open its product page. Prices are approximate (CAD) and may change.</p>
-  </header>
 
-  <nav class="filters" id="filters" aria-label="Price range filter"></nav>
-  <main id="list"></main>
+<header>
+  <h1>Wishlist</h1>
+  <p>Tap any item to open its product page. Prices are approximate (CAD) and may change.</p>
+</header>
 
-  <footer>Approximate prices only. Check the store page for current pricing and availability.</footer>
+<nav class="filters" id="filters" aria-label="Price range filter"></nav>
+<main id="list"></main>
+
+<footer>
+  Approximate prices only. Check the store page for current pricing and availability.
+</footer>
+
 </div>
 
 <script>
-  // Edit the price numbers below (approximate CAD) and the groups update automatically.
-  const items = [
-    { name: "KICA Mini 3 Massage Gun", store: "Best Buy", cat: "Wellness", price: 70,
-      note: "Handheld percussive massage device in silver.",
-      img: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/192/19292/19292443.jpg",
-      url: "https://www.bestbuy.ca/en-ca/product/kica-mini-3-handheld-percussive-massage-device-silver/19292443" },
-    { name: "Drill", store: "Amazon.ca", cat: "Tools", price: 230,
-      note: "Cordless power drill. On-sale rn -> 161",
-      img: "https://m.media-amazon.com/images/I/810uBOVDunL._AC_SL1500_.jpg",
-      url: "https://www.amazon.ca/dp/B0FWRPFVF6" },
-    { name: "Instant Pot Mini", store: "Amazon.ca", cat: "Kitchen", price: 153,
-      note: "Compact electric pressure cooker / multicooker. On-sale rn -> 106",
-      img: "https://m.media-amazon.com/images/I/61tkkXRXmFL._AC_SL1500_.jpg",
-      url: "https://www.amazon.ca/dp/B0F9B9R5J9" },
-    { name: "New Balance 740", store: "Champs Sports", cat: "Footwear", price: 140,
-      note: "White/black. Men's 5.5 = women's 6.5. Check kids' sizes too.",
-      img: "https://assets.footlocker.com/is/image/FLDM/52997402_01?fmt=webp-alpha&bfc=on&wid=500&hei=500",
-      url: "https://www.champssports.ca/en/product/new-balance-740-womens/52997402.html" },
-    { name: "Kylie Moodstones: Cashmere Muse", store: "Sephora", cat: "Beauty", price: 104,
-      note: "Kylie Jenner fragrance.",
-      img: "https://www.sephora.com/productimages/sku/s3001310-main-zoom.jpg?imwidth=1224",
-      url: "https://www.sephora.com/product/kylie-jenner-moodstones-cashmere-muse-P525217?country_switch=ca&skuId=3001310" },
-    { name: "Sony ULT Field 1 Speaker", store: "Best Buy", cat: "Audio", price: 180,
-      note: "Waterproof bluetooth speaker in off-white. On-sale rn -> 98",
-      img: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/179/17905/17905294.jpg",
-      url: "https://www.bestbuy.ca/en-ca/product/sony-ult-field-1-waterproof-bluetooth-wireless-speaker-off-white/17905294" },
-    { name: "Columbia Hikebound II Rain Jacket", store: "Columbia Sportswear", cat: "Outdoor", price: 130,
-      note: "Women's waterproof jacket. Size M. On-sale rn -> 97.5",
-      img: "https://media.columbia.com/i/columbia/2086981_010_f_om?$img-cache$&sm=aspect&aspect=1280:1344&w=1280&fmt=auto&qlt=75",
-      url: "https://www.columbiasportswear.ca/en/p/womens-hikebound-ii-rain-jacket-2086981.html?color=010&size=M" },
-    { name: "Bambu Lab P2S + AMS Combo", store: "Best Buy", cat: "Tech", price: 1000,
-      note: "Enclosed multi-colour 3D printer, 256 x 256 x 256 mm build volume.",
-      img: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/198/19854/19854444.jpg",
-      url: "https://www.bestbuy.ca/en-ca/product/bambu-lab-p2s-ams-combo-enclosed-fdm-3d-printer-multi-colour-printing-camera-auto-bed-leveling-600mm-s-300c-256-x-256-x-256mm-build-volume/19854444" }
+"use strict";
+
+const items = [
+  {
+    name: "KICA Mini 3 Massage Gun",
+    store: "Best Buy",
+    cat: "Wellness",
+    price: 70,
+    note: "Handheld percussive massage device in silver.",
+    img: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/192/19292/19292443.jpg",
+    url: "https://www.bestbuy.ca/en-ca/product/kica-mini-3-handheld-percussive-massage-device-silver/19292443"
+  },
+  {
+    name: "Drill",
+    store: "Amazon.ca",
+    cat: "Tools",
+    price: 230,
+    note: "Cordless power drill. On-sale rn -> 161",
+    img: "https://m.media-amazon.com/images/I/810uBOVDunL._AC_SL1500_.jpg",
+    url: "https://www.amazon.ca/dp/B0FWRPFVF6"
+  },
+  {
+    name: "Instant Pot Mini",
+    store: "Amazon.ca",
+    cat: "Kitchen",
+    price: 153,
+    note: "Compact electric pressure cooker / multicooker. On-sale rn -> 106",
+    img: "https://m.media-amazon.com/images/I/61tkkXRXmFL._AC_SL1500_.jpg",
+    url: "https://www.amazon.ca/dp/B0F9B9R5J9"
+  },
+  {
+    name: "New Balance 740",
+    store: "Champs Sports",
+    cat: "Footwear",
+    price: 140,
+    note: "White/black. Men's 5.5 = women's 6.5. Check kids' sizes too.",
+    img: "https://assets.footlocker.com/is/image/FLDM/52997402_01?fmt=webp-alpha&bfc=on&wid=500&hei=500",
+    url: "https://www.champssports.ca/en/product/new-balance-740-womens/52997402.html"
+  },
+  {
+    name: "Kylie Moodstones: Cashmere Muse",
+    store: "Sephora",
+    cat: "Beauty",
+    price: 104,
+    note: "Kylie Jenner fragrance.",
+    img: "https://www.sephora.com/productimages/sku/s3001310-main-zoom.jpg?imwidth=1224",
+    url: "https://www.sephora.com/product/kylie-jenner-moodstones-cashmere-muse-P525217?country_switch=ca&skuId=3001310"
+  },
+  {
+    name: "Sony ULT Field 1 Speaker",
+    store: "Best Buy",
+    cat: "Audio",
+    price: 180,
+    note: "Waterproof bluetooth speaker in off-white. On-sale rn -> 98",
+    img: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/179/17905/17905294.jpg",
+    url: "https://www.bestbuy.ca/en-ca/product/sony-ult-field-1-waterproof-bluetooth-wireless-speaker-off-white/17905294"
+  },
+  {
+    name: "Columbia Hikebound II Rain Jacket",
+    store: "Columbia Sportswear",
+    cat: "Outdoor",
+    price: 130,
+    note: "Women's waterproof jacket. Size M. On-sale rn -> 97.5",
+    img: "https://media.columbia.com/i/columbia/2086981_010_f_om?$img-cache$&sm=aspect&aspect=1280:1344&w=1280&fmt=auto&qlt=75",
+    url: "https://www.columbiasportswear.ca/en/p/womens-hikebound-ii-rain-jacket-2086981.html?color=010&size=M"
+  },
+  {
+    name: "Bambu Lab P2S + AMS Combo",
+    store: "Best Buy",
+    cat: "Tech",
+    price: 1000,
+    note: "Enclosed multi-colour 3D printer, 256 x 256 x 256 mm build volume.",
+    img: "https://multimedia.bbycastatic.ca/multimedia/products/500x500/198/19854/19854444.jpg",
+    url: "https://www.bestbuy.ca/en-ca/product/bambu-lab-p2s-ams-combo-enclosed-fdm-3d-printer-multi-colour-printing-camera-auto-bed-leveling-600mm-s-300c-256-x-256-x-256mm-build-volume/19854444"
+  }
+];
+
+const tiers = [
+  { id: "under", title: "Under $50", sub: "small treats", test: p => p < 50 },
+  { id: "around", title: "Around $100", sub: "$50 to $149", test: p => p >= 50 && p < 150 },
+  { id: "above", title: "Above $150", sub: "bigger purchases", test: p => p >= 150 }
+];
+
+const fmt = p => "~$" + p.toLocaleString("en-CA");
+
+let active = "all";
+
+function cardHTML(it) {
+  const card = document.createElement("a");
+  card.className = "card";
+  card.href = it.url;
+  card.target = "_blank";
+  card.rel = "noopener noreferrer";
+
+  const thumb = document.createElement("div");
+  thumb.className = "thumb";
+
+  const label = document.createElement("span");
+  label.className = "label";
+  label.textContent = it.cat;
+  thumb.appendChild(label);
+
+  const img = document.createElement("img");
+  img.src = it.img;
+  img.alt = it.name;
+  img.loading = "lazy";
+  img.onerror = () => img.remove();
+  thumb.appendChild(img);
+
+  const body = document.createElement("div");
+  body.className = "body";
+
+  const store = document.createElement("div");
+  store.className = "store";
+  store.textContent = it.store;
+
+  const name = document.createElement("div");
+  name.className = "name";
+  name.textContent = it.name;
+
+  const note = document.createElement("div");
+  note.className = "note";
+  note.textContent = it.note;
+
+  const foot = document.createElement("div");
+  foot.className = "foot";
+
+  const price = document.createElement("span");
+  price.className = "price";
+  price.textContent = fmt(it.price);
+
+  const go = document.createElement("span");
+  go.className = "go";
+  go.textContent = "View";
+
+  foot.append(price, go);
+  body.append(store, name, note, foot);
+  card.append(thumb, body);
+
+  return card;
+}
+
+function render() {
+  const list = document.getElementById("list");
+  list.replaceChildren();
+
+  tiers.forEach(tier => {
+    if (active !== "all" && active !== tier.id) return;
+
+    const group = items
+      .filter(item => tier.test(item.price))
+      .sort((a, b) => a.price - b.price);
+
+    if (!group.length) return;
+
+    const section = document.createElement("section");
+    const heading = document.createElement("h2");
+    heading.textContent = tier.title;
+
+    const small = document.createElement("small");
+    small.textContent = `${tier.sub} · ${group.length} item${group.length > 1 ? "s" : ""}`;
+    heading.appendChild(small);
+
+    const rule = document.createElement("div");
+    rule.className = "rule";
+
+    const grid = document.createElement("div");
+    grid.className = "grid";
+
+    group.forEach(item => grid.appendChild(cardHTML(item)));
+
+    section.append(heading, rule, grid);
+    list.appendChild(section);
+  });
+
+  if (!list.children.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = "Nothing in this range yet.";
+    list.appendChild(empty);
+  }
+}
+
+function buildFilters() {
+  const nav = document.getElementById("filters");
+  nav.replaceChildren();
+
+  const options = [
+    { id: "all", title: "All" },
+    ...tiers.map(t => ({ id: t.id, title: t.title }))
   ];
 
-  const tiers = [
-    { id: "under",  title: "Under $50",    sub: "small treats",        test: p => p < 50 },
-    { id: "around", title: "Around $100",  sub: "$50 to $149",         test: p => p >= 50 && p < 150 },
-    { id: "above",  title: "Above $150",   sub: "bigger purchases",    test: p => p >= 150 }
-  ];
+  options.forEach(option => {
+    const button = document.createElement("button");
+    button.className = "chip" + (option.id === active ? " active" : "");
+    button.type = "button";
+    button.textContent = option.title;
+    button.dataset.id = option.id;
 
-  const fmt = p => "~$" + p.toLocaleString("en-CA");
-  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    button.addEventListener("click", () => {
+      active = option.id;
 
-  function cardHTML(it) {
-    const img = it.img ? `<img src="${it.img}" alt="${esc(it.name)}" loading="lazy" onerror="this.remove()">` : "";
-    return `
-      <a class="card" href="${it.url}" target="_blank" rel="noopener">
-        <div class="thumb"><span class="label">${esc(it.cat)}</span>${img}</div>
-        <div class="body">
-          <div class="store">${esc(it.store)}</div>
-          <div class="name">${esc(it.name)}</div>
-          <div class="note">${esc(it.note)}</div>
-          <div class="foot"><span class="price">${fmt(it.price)}</span><span class="go">View</span></div>
-        </div>
-      </a>`;
-  }
+      nav.querySelectorAll(".chip").forEach(chip => {
+        chip.classList.toggle("active", chip.dataset.id === active);
+      });
 
-  let active = "all";
-
-  function render() {
-    const list = document.getElementById("list");
-    let html = "";
-    tiers.forEach(t => {
-      if (active !== "all" && active !== t.id) return;
-      const group = items.filter(i => t.test(i.price)).sort((a, b) => a.price - b.price);
-      if (!group.length) return;
-      html += `<section>
-        <h2>${t.title} <small>${t.sub} &middot; ${group.length} item${group.length > 1 ? "s" : ""}</small></h2>
-        <div class="rule"></div>
-        <div class="grid">${group.map(cardHTML).join("")}</div>
-      </section>`;
-    });
-    list.innerHTML = html || '<p class="empty">Nothing in this range yet.</p>';
-  }
-
-  function buildFilters() {
-    const nav = document.getElementById("filters");
-    const opts = [{ id: "all", title: "All" }, ...tiers.map(t => ({ id: t.id, title: t.title }))];
-    nav.innerHTML = opts.map(o => `<button class="chip${o.id === active ? " active" : ""}" data-id="${o.id}">${o.title}</button>`).join("");
-    nav.addEventListener("click", e => {
-      const b = e.target.closest(".chip");
-      if (!b) return;
-      active = b.dataset.id;
-      nav.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === b));
       render();
     });
-  }
 
-  buildFilters();
-  render();
+    nav.appendChild(button);
+  });
+}
+
+buildFilters();
+render();
 </script>
 </body>
 </html>
